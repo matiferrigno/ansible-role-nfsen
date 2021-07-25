@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  roles:
+    - role: ansible-role-nfsen-ng
+
+- name: fail
+  hosts: all  
+  tasks:
+    - name: fail
+      fail:
+        msg: "2"

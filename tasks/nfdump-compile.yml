@@ -1,0 +1,53 @@
+---
+
+- name: Install dependencies to compile nfdump
+  apt:
+    pkg:
+      - build-essential
+      - automake
+      - flex
+      - bison
+      - zlib1g-dev
+      - libpcap-dev
+      - libbz2-dev
+      - rrdtool
+      - librrd-dev      
+    update_cache: true
+
+- name: Clone nfdump
+  git:
+    repo: "{{ nfdump_gitrepo }}"
+    dest: /usr/src/nfdump
+    force: true
+    update: true
+    version: "{{ nfdump_version }}"
+
+- name: Autogen
+  command:
+    cmd: ./autogen.sh
+    chdir: /usr/src/nfdump
+
+- name: Configure
+  command:
+    cmd: ./configure --enable-nsel --enable-sflow --enable-nfprofile --enable-nftrack --enable-readpcap --enable-nfpcapd
+    chdir: /usr/src/nfdump
+
+- name: Make
+  command:
+    cmd: make
+    chdir: /usr/src/nfdump
+
+- name: Make Install
+  command:
+    cmd: make install
+    chdir: /usr/src/nfdump
+
+- name: Add libraries to ld
+  copy:
+    content: |
+      /usr/local/lib
+    dest: /etc/ld.so.conf.d/nfdump.conf
+
+- name: Run ldconfig
+  command:
+    cmd: ldconfig

@@ -1,0 +1,48 @@
+
+- set_fact:
+    ntp_timezone: America/Argentina/Buenos_Aires
+    ntp_package: chrony
+    ntp_daemon: chrony
+    php_enable_php_fpm: true
+    apache_mods_enabled:
+      - ssl.load
+      - rewrite.load
+      - deflate.load
+      - headers.load
+      - expires.load
+    apache_vhosts:
+      - servername: "{{ nfsen_servername }}"
+        documentroot: "{{ nfsen_documentroot }}"
+        allow_override: all
+        extra_parameters: |
+              ProxyPassMatch ^/(.*\.php(/.*)?)$ "fcgi://127.0.0.1:9000{{ nfsen_documentroot }}"
+    php_packages_extra:
+      - php-rrd
+    php_date_timezone: America/Argentina/Buenos_Aires
+
+- include_role:
+    name: geerlingguy.ntp
+  when: nfsen_install_ntp | default(true)
+
+- include_role:
+    name: geerlingguy.git
+  when: nfsen_install_git | default(true)
+
+- include_role:
+    name: geerlingguy.apache
+  when: nfsen_install_apache_php | default(true)
+
+- include_role:
+    name: geerlingguy.php
+  when: nfsen_install_apache_php | default(true)
+
+- name: Configure php-cli timezone
+  ansible.builtin.lineinfile:
+    path: /etc/php/7.3/cli/php.ini
+    regexp: '^date.timezone'
+    line: "date.timezone = America/Argentina/Buenos_Aires"
+  when: nfsen_install_apache_php | default(true)
+
+- include_role:
+    name: geerlingguy.apache-php-fpm
+  when: nfsen_install_apache_php | default(true)

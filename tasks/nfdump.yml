@@ -1,0 +1,21 @@
+---
+
+- set_fact:
+    nfdump_bins: /usr/bin
+  when: not nfdump_fromsources
+
+- name: Compile nfdump
+  include_tasks: nfdump-compile.yml
+  when: nfdump_fromsources
+
+- name: Configure sources
+  include_tasks: nfdump-source.yml
+  loop: "{{ nfdump_sources }}"
+
+- name: Create default profile directory if nfdump_sources is empty
+  file:
+    path: "{{ nfdump_dumproot }}/profiles-data/default"
+    state: directory
+    owner: root
+    group: root
+  when: nfdump_sources | length == 0
