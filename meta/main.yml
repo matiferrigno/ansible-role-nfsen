@@ -1,0 +1,27 @@
+---
+galaxy_info:
+  role_name: nfsen-ng
+  author: matiferrigno
+  description: installs nfsen on Linux.
+  company: self-employed
+
+  license: "license (BSD, MIT)"
+
+  min_ansible_version: 2.10
+
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+    - name: Ubuntu
+      versions:
+        - focal
+
+  galaxy_tags:
+    - monitoring
+    - networking
+    - nfcapd
+    - nfdump
+    - nfsen
+
+dependencies: []

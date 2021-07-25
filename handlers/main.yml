@@ -1,0 +1,8 @@
+---
+# handlers file for matiferrigno.ansible-nfsen
+
+- name: Restart nfsen-ng
+  ansible.builtin.service:    
+    name: nfsen-ng
+    daemon_reload: true
+    state: restarted

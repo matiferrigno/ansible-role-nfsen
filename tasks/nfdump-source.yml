@@ -1,0 +1,31 @@
+---
+
+- name: Ensure directory for dump exists
+  file:
+    path: "{{ nfdump_dumproot }}/profiles-data/{{ item.name }}"
+    state: directory
+    owner: root
+    group: root
+    recurse: yes
+
+- name: Create nfdump service
+  vars:
+    port: "{{ item.port }}"
+    bin: "{{ nfdump_bins }}/nfcapd"
+  template:
+    src: service/nfdump.service.j2
+    dest: "/lib/systemd/system/nfdump@.service"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: "Restart nfdump.{{ item.name }}"
+  ansible.builtin.service:
+    name: "nfdump@{{ item.name }}"
+    daemon_reload: true
+    state: restarted
+
+- name: Start on boot
+  ansible.builtin.service:
+    enabled: yes
+    name: "nfdump@{{ item.name }}"

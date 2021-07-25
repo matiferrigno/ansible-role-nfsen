@@ -1,0 +1,9 @@
+*.retry
+*/__pycache__
+*.pyc
+.vscode/
+.idea/
+.env/
+.direnv/
+.cache/
+env/
