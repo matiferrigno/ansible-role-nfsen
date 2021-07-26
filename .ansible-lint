@@ -4,3 +4,8 @@ exclude_paths:
   - .direnv/
   - .cache/
   - env/
+  - molecule/
+
+skip_list:
+  - 'yaml'
+  - 'role-name'

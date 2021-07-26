@@ -11,7 +11,7 @@
       - libpcap-dev
       - libbz2-dev
       - rrdtool
-      - librrd-dev      
+      - librrd-dev
     update_cache: true
 
 - name: Clone nfdump
@@ -26,20 +26,21 @@
   command:
     cmd: ./autogen.sh
     chdir: /usr/src/nfdump
+  changed_when: false
 
 - name: Configure
   command:
     cmd: ./configure --enable-nsel --enable-sflow --enable-nfprofile --enable-nftrack --enable-readpcap --enable-nfpcapd
     chdir: /usr/src/nfdump
+  changed_when: false
 
 - name: Make
-  command:
-    cmd: make
+  make:
     chdir: /usr/src/nfdump
 
 - name: Make Install
-  command:
-    cmd: make install
+  make:
+    target: install
     chdir: /usr/src/nfdump
 
 - name: Add libraries to ld
@@ -47,7 +48,11 @@
     content: |
       /usr/local/lib
     dest: /etc/ld.so.conf.d/nfdump.conf
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
 
 - name: Run ldconfig
   command:
     cmd: ldconfig
+  changed_when: false

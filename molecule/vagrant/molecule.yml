@@ -1,3 +1,5 @@
+---
+
 driver:
   name: vagrant
   provider:
@@ -6,7 +8,7 @@ driver:
 platforms:
   - name: debian10
     config_options:
-      ssh.keep_alive: yes
+      ssh.keep_alive: true
       synced_folder: true
     box: debian/contrib-buster64
     memory: 2048
@@ -17,7 +19,7 @@ platforms:
         auto_config: true
         bridge: [
           wlp0s20f3,
-          enp7s0,          
+          enp7s0,
         ]
 
 provisioner:

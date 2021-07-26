@@ -1,5 +1,5 @@
 ---
-# defaults file for matiferrigno.ansible-nfsen
+# defaults file for matiferrigno.ansible-nfsen-ng
 
 # nfsen-ng
 nfsen_install_ntp: true
