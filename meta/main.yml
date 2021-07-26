@@ -1,7 +1,7 @@
 ---
 
 galaxy_info:
-  role_name: nfsen-ng
+  role_name: nfsen
   author: matiferrigno
   description: installs nfsen on Linux.
   company: self-employed
