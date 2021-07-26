@@ -19,7 +19,7 @@
 - name: Give +x to nfsen-ng/backend/cli.php
   file:
     path: "{{ nfsen_documentroot }}/backend/cli.php"
-    mode: u=rx,g=rx,o=rx
+    mode: u=rwx,g=rx,o=rx
 
 - name: Copy settings.php.dist to settings.php
   template:
@@ -27,6 +27,7 @@
     dest: "{{ nfsen_documentroot }}/backend/settings/settings.php"
     owner: www-data
     group: www-data
+    mode: u=rw,g=rw,o=r
   notify:
     - "Restart nfsen-ng"
 
@@ -36,15 +37,15 @@
     dest: /lib/systemd/system/nfsen-ng.service
     owner: root
     group: root
-    mode: 0644  
+    mode: u=rw,g=r,o=r
   notify:
     - "Restart nfsen-ng"
 
 - name: Reload systemd
   ansible.builtin.systemd:
-    daemon_reload: yes
+    daemon_reload: true
 
 - name: Start on boot
   ansible.builtin.service:
-    enabled: yes
+    enabled: true
     name: "nfsen-ng"

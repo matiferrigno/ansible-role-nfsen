@@ -1,6 +1,7 @@
 ---
 
-- set_fact:
+- name: Set nfdump binaries path
+  set_fact:
     nfdump_bins: /usr/bin
   when: not nfdump_fromsources
 
@@ -18,4 +19,5 @@
     state: directory
     owner: root
     group: root
+    mode: u=rwx,g=rx,o=rx
   when: nfdump_sources | length == 0

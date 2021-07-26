@@ -6,7 +6,7 @@
     state: directory
     owner: root
     group: root
-    recurse: yes
+    recurse: true
 
 - name: Create nfdump service
   vars:
@@ -27,5 +27,5 @@
 
 - name: Start on boot
   ansible.builtin.service:
-    enabled: yes
+    enabled: true
     name: "nfdump@{{ item.name }}"

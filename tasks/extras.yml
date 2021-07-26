@@ -1,5 +1,7 @@
+---
 
-- set_fact:
+- name: Settings default vars for extra roles
+  set_fact:
     ntp_timezone: America/Argentina/Buenos_Aires
     ntp_package: chrony
     ntp_daemon: chrony
@@ -20,19 +22,23 @@
       - php-rrd
     php_date_timezone: America/Argentina/Buenos_Aires
 
-- include_role:
+- name: role ntp
+  include_role:
     name: geerlingguy.ntp
   when: nfsen_install_ntp | default(true)
 
-- include_role:
+- name: role git
+  include_role:
     name: geerlingguy.git
   when: nfsen_install_git | default(true)
 
-- include_role:
+- name: role apache
+  include_role:
     name: geerlingguy.apache
   when: nfsen_install_apache_php | default(true)
 
-- include_role:
+- name: role php
+  include_role:
     name: geerlingguy.php
   when: nfsen_install_apache_php | default(true)
 
@@ -43,6 +49,7 @@
     line: "date.timezone = America/Argentina/Buenos_Aires"
   when: nfsen_install_apache_php | default(true)
 
-- include_role:
+- name: role apache-php
+  include_role:
     name: geerlingguy.apache-php-fpm
   when: nfsen_install_apache_php | default(true)
