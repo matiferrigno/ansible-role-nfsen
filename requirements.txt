@@ -3,3 +3,4 @@ ansible-lint>=4.0.0
 molecule>=3.3
 git+git://github.com/ansible-community/molecule-vagrant@master
 python-vagrant
+yamllint
