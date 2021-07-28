@@ -4,4 +4,4 @@
   hosts: all
   become: true
   roles:
-    - role: ansible-role-nfsen
+    - role: ansible-role-nfsen-ng
