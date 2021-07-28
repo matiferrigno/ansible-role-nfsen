@@ -11,6 +11,7 @@
 - name: Create nfdump service
   vars:
     port: "{{ item.port }}"
+    profile: "{{ item.profile | default(nfsen_default_profile) }}"
     bin: "{{ nfdump_bins }}/nfcapd"
   template:
     src: service/nfdump.service.j2

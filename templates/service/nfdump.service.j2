@@ -4,7 +4,7 @@ After=network.target auditd.service
 
 [Service]
 Type=simple
-ExecStart={{ bin }} -P /var/run/nfcapd.%i.pid -S 1 -w -D -p {{ port }} -z -I %i -l {{ nfdump_dumproot }}/profiles-data/%i
+ExecStart={{ bin }} -P /var/run/nfcapd.%i.pid -S 1 -w -D -p {{ port }} -z -I {{ profile }} -l {{ nfdump_dumproot }}/profiles-data/%i
 PIDFile=/var/run/nfcapd.%i.pid
 KillMode=process
 Restart=no
