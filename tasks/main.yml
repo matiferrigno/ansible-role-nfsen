@@ -6,10 +6,5 @@
 - name: Compile and install nfdump (https://github.com/phaag/nfdump)
   include_tasks: nfdump.yml
 
-- name: Set nfsen_default_profile
-  set_fact:
-    nfsen_default_profile: "{{ nfdump_sources[0].name }}"
-  when: nfdump_sources | length > 0
-
 - name: Install nfsen-ng (https://github.com/mbolli/nfsen-ng)
   include_tasks: nfsen-ng.yml
