@@ -13,6 +13,7 @@
     port: "{{ item.port }}"
     profile: "{{ item.profile | default(nfsen_default_profile) }}"
     bin: "{{ nfdump_bins }}/nfcapd"
+    buffer_size: "{{ item.buffer_size | default(200000) }}"
   template:
     src: service/nfdump.service.j2
     dest: "/lib/systemd/system/nfdump@{{ item.name }}.service"
