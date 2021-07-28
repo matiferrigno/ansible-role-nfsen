@@ -15,7 +15,7 @@
     bin: "{{ nfdump_bins }}/nfcapd"
   template:
     src: service/nfdump.service.j2
-    dest: "/lib/systemd/system/nfdump@.service"
+    dest: "/lib/systemd/system/nfdump@{{ item.name }}.service"
     owner: root
     group: root
     mode: 0644
