@@ -15,7 +15,7 @@
 
 - name: Create default profile directory if nfdump_sources is empty
   file:
-    path: "{{ nfdump_dumproot }}/profiles-data/default"
+    path: "{{ nfdump_dumproot }}/profiles-data/{{ nfsen_default_profile }}"
     state: directory
     owner: root
     group: root
