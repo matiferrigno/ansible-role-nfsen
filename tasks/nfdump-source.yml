@@ -2,7 +2,7 @@
 
 - name: Ensure directory for dump exists
   file:
-    path: "{{ nfdump_dumproot }}/profiles-data/{{ item.name }}"
+    path: "{{ nfdump_dumproot }}/profiles-data/{{ item.profile | default(nfsen_default_profile) }}/{{ item.name }}"
     state: directory
     owner: root
     group: root
