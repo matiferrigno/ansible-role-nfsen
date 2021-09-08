@@ -1,0 +1,10 @@
+---
+
+- name: Install extras
+  include_tasks: extras.yml
+
+- name: Compile and install nfdump (https://github.com/phaag/nfdump)
+  include_tasks: nfdump.yml
+
+- name: Install nfsen-ng (https://github.com/mbolli/nfsen-ng)
+  include_tasks: nfsen-ng.yml

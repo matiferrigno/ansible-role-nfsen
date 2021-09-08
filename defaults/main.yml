@@ -1,0 +1,38 @@
+---
+# defaults file for matiferrigno.ansible-nfsen-ng
+
+# nfsen-ng
+nfsen_install_ntp: true
+nfsen_install_apache_php: true
+nfsen_install_git: true
+nfsen_gitrepo: https://github.com/mbolli/nfsen-ng
+nfsen_documentroot: /var/www/nfsen-ng
+nfsen_servername: nfsen-ng.local
+nfsen_log: LOG_DEBUG
+nfsen_ports:
+  - 80
+  - 443
+  - 53
+  - 22
+nfsen_default_profile: "live"
+
+# nfdump
+nfdump_gitrepo: https://github.com/phaag/nfdump.git
+nfdump_version: v1.6.23
+nfdump_fromsources: true
+nfdump_bins: /usr/local/bin
+nfdump_pid: /var/run/nfcapd.pid
+nfdump_port: 2055
+nfdump_name: default
+nfdump_dumproot: /var/nfdump
+
+nfdump_sources:
+  - name: borde
+    port: 2055
+    profile: live
+  - name: test
+    port: 2056
+    profile: live
+
+ipt_netflow: true
+ipt_netflow_gitrepo: https://github.com/aabc/ipt-netflow.git

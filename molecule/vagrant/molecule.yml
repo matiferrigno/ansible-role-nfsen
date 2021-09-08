@@ -1,0 +1,43 @@
+---
+
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+
+platforms:
+  - name: debian10
+    config_options:
+      ssh.keep_alive: true
+      synced_folder: true
+    box: debian/contrib-buster64
+    memory: 2048
+    cpus: 2
+    interfaces:
+      - network_name: public_network
+        type: dhcp
+        auto_config: true
+        bridge: [
+          wlp0s20f3,
+          enp7s0,
+        ]
+
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  inventory:
+    links:
+      group_vars: ../../tests/inventory/group_vars/
+      host_vars: ../../tests/inventory/host_vars/
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      callback_whitelist: profile_task, timer, yaml
+
+verifier:
+  name: ansible
+lint: |
+  set -ex
+  yamllint .
+  ansible-lint

@@ -1,0 +1,51 @@
+---
+
+- name: Clone nfsen-ng
+  git:
+    repo: "{{ nfsen_gitrepo }}"
+    dest: "{{ nfsen_documentroot }}"
+    force: true
+    update: true
+    version: v0.2
+
+- name: Give permissions to www-data
+  file:
+    path: "{{ nfsen_documentroot }}"
+    state: directory
+    recurse: true
+    owner: www-data
+    group: www-data
+
+- name: Give +x to nfsen-ng/backend/cli.php
+  file:
+    path: "{{ nfsen_documentroot }}/backend/cli.php"
+    mode: u=rwx,g=rx,o=rx
+
+- name: Copy settings.php.dist to settings.php
+  template:
+    src: "settings.php.j2"
+    dest: "{{ nfsen_documentroot }}/backend/settings/settings.php"
+    owner: www-data
+    group: www-data
+    mode: u=rw,g=rw,o=r
+  notify:
+    - "Restart nfsen-ng"
+
+- name: Create nfsen-ng service
+  template:
+    src: service/nfsen-ng.service.j2
+    dest: /lib/systemd/system/nfsen-ng.service
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  notify:
+    - "Restart nfsen-ng"
+
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Start on boot
+  ansible.builtin.service:
+    enabled: true
+    name: "nfsen-ng"
