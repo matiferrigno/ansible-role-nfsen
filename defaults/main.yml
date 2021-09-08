@@ -33,3 +33,6 @@ nfdump_sources:
   - name: test
     port: 2056
     profile: live
+
+ipt_netflow: true
+ipt_netflow_gitrepo: https://github.com/aabc/ipt-netflow.git

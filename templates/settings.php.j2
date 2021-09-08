@@ -38,7 +38,7 @@ $nfsen_config = array(
     'nfdump' => array(
         'binary' => '{{ nfdump_bins }}/nfdump',
         'profiles-data' => '{{ nfdump_dumproot }}/profiles-data',
-        'profile' => '{{ nfsen_default_profile | default("default") }}',
+        'profile' => '{{ nfsen_default_profile | default("live") }}',
         'max-processes' => {{ nfsen_max_processes | default(1) }}, // maximum number of concurrently running nfdump processes
     ),
     'db' => array(
