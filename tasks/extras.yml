@@ -53,7 +53,7 @@
 
 - name: create certs
   include_tasks: ssl-gen.yml
-   when: nfsen_install_apache_php | default(true)
+  when: nfsen_install_apache_php | default(true)
 
 - name: role apache
   include_role:
