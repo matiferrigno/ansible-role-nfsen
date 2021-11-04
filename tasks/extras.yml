@@ -49,9 +49,11 @@
     group: www-data
     mode: 0640
   loop: "{{ nfsen_users }}"
+  when: nfsen_install_apache_php | default(true)
 
 - name: create certs
   include_tasks: ssl-gen.yml
+   when: nfsen_install_apache_php | default(true)
 
 - name: role apache
   include_role:
