@@ -16,6 +16,10 @@ nfsen_ports:
   - 22
 nfsen_default_profile: "live"
 
+nfsen_users:
+  - username: root
+    password: toor
+
 # nfdump
 nfdump_gitrepo: https://github.com/phaag/nfdump.git
 nfdump_version: v1.6.23
