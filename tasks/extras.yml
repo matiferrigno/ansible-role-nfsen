@@ -16,7 +16,7 @@
       - servername: "{{ nfsen_servername }}"
         documentroot: "{{ nfsen_documentroot }}"
         allow_override: all
-        certificate_file: "/etc/ssl/certs/{{ nfsen_servername }}.crt"
+        certificate_file: "/etc/ssl/crt/{{ nfsen_servername }}.crt"
         certificate_key_file: "/etc/ssl/private/{{ nfsen_servername }}.key"
         extra_parameters: |
           <Location "/">
