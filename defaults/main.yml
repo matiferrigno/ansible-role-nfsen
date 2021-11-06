@@ -30,6 +30,9 @@ nfdump_port: 2055
 nfdump_name: default
 nfdump_dumproot: /var/nfdump
 
+nfdump_expire_lifetime: "8w"
+nfdump_expire_maxsize: "20g"
+
 nfdump_sources:
   - name: borde
     port: 2055

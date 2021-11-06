@@ -31,3 +31,13 @@
   ansible.builtin.service:
     enabled: true
     name: "nfdump@{{ item.name }}"
+
+- name: Creates a cron file /etc/cron.d/nfexpire
+  ansible.builtin.cron:
+    name: "nfexpire {{ item.name }}"
+    weekday: "*"
+    minute: "00"
+    hour: "*"
+    user: root
+    job: "{{ nfdump_bins }}/nfexpire -e {{ nfdump_dumproot }}/profiles-data/{{ item.name}} -t {{ nfdump_expire_lifetime }} -s {{ nfdump_expire_maxsize }}"
+    cron_file: ansible_yum-autoupdate
