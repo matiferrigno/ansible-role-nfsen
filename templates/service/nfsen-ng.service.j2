@@ -4,7 +4,7 @@ Description=nfsen-ng backend daemon
 [Service]
 Type=simple
 WorkingDirectory={{ nfsen_documentroot }}/backend
-ExecStartPre={{ nfsen_documentroot }}/backend/cli.php -f -ps import
+#ExecStartPre=-{{ nfsen_documentroot }}/backend/cli.php -f -ps import
 ExecStart={{ nfsen_documentroot }}/backend/cli.php start
 ExecStartPost=-/usr/bin/chown root:www-data -R {{ nfsen_documentroot }}/backend/datasources/data
 PIDFile={{ nfsen_documentroot }}/backend/nfsen-ng.pid

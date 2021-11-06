@@ -1,0 +1,31 @@
+---
+
+- name: Create SSL directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /etc/ssl/crt
+    - /etc/ssl/csr
+    - /etc/ssl/private
+
+- name: Generate an OpenSSL private key with the default values (4096 bits, RSA)
+  openssl_privatekey:
+    path: "/etc/ssl/private/{{ nfsen_servername }}.key"
+    type: RSA
+
+- name: Generate an OpenSSL Certificate Signing Request
+  openssl_csr:
+    path: "/etc/ssl/csr/{{ nfsen_servername }}.csr"
+    privatekey_path: "/etc/ssl/private/{{ nfsen_servername }}.key"
+    country_name: "{{ nfsen_cert_country | default('AR') }}"
+    organization_name: "{{ nfsen_cert_country | default('AR') }}"
+    email_address: "{{ nfsen_cert_mail | default('root@nfsen.local') }}"
+    common_name: "{{ nfsen_servername }}"
+
+- name: Generate a Self Signed OpenSSL certificate
+  openssl_certificate:
+    path: "/etc/ssl/crt/{{ nfsen_servername }}.crt"
+    privatekey_path: "/etc/ssl/private/{{ nfsen_servername }}.key"
+    csr_path: "/etc/ssl/csr/{{ nfsen_servername }}.csr"
+    provider: selfsigned

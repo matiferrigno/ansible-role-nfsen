@@ -1,6 +1,11 @@
 ansible>=4.3.0
 ansible-lint>=4.0.0
-molecule>=3.3
-git+git://github.com/ansible-community/molecule-vagrant@master
-python-vagrant
+molecule>=3.4.0
+molecule-podman>=0.3.0
+molecule-vagrant>=0.6.3
+python-vagrant>=0.5.15
 yamllint
+
+
+
+

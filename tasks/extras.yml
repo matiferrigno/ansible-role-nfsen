@@ -12,12 +12,20 @@
       - deflate.load
       - headers.load
       - expires.load
-    apache_vhosts:
+    apache_vhosts_ssl:
       - servername: "{{ nfsen_servername }}"
         documentroot: "{{ nfsen_documentroot }}"
         allow_override: all
+        certificate_file: "/etc/ssl/crt/{{ nfsen_servername }}.crt"
+        certificate_key_file: "/etc/ssl/private/{{ nfsen_servername }}.key"
         extra_parameters: |
-              ProxyPassMatch ^/(.*\.php(/.*)?)$ "fcgi://127.0.0.1:9000{{ nfsen_documentroot }}"
+          <Location "/">
+            Require valid-user
+            AuthType Basic
+            AuthName "Please authenticate"
+            AuthUserFile /etc/apache2/.htpasswd.nfsen
+          </Location>
+          ProxyPassMatch ^/(.*\.php(/.*)?)$ "fcgi://127.0.0.1:9000{{ nfsen_documentroot }}"
     php_packages_extra:
       - php-rrd
     php_date_timezone: America/Argentina/Buenos_Aires
@@ -32,6 +40,21 @@
     name: geerlingguy.git
   when: nfsen_install_git | default(true)
 
+- name: create user
+  community.general.htpasswd:
+    path: /etc/apache2/.htpasswd.nfsen
+    name: "{{ item.username }}"
+    password: "{{ item.password }}"
+    owner: root
+    group: www-data
+    mode: 0640
+  loop: "{{ nfsen_users }}"
+  when: nfsen_install_apache_php | default(true)
+
+- name: create certs
+  include_tasks: ssl-gen.yml
+  when: nfsen_install_apache_php | default(true)
+
 - name: role apache
   include_role:
     name: geerlingguy.apache
@@ -44,7 +67,7 @@
 
 - name: Configure php-cli timezone
   ansible.builtin.lineinfile:
-    path: /etc/php/7.3/cli/php.ini
+    path: "/etc/php/{{ php_default_version_debian }}/cli/php.ini"
     regexp: '^date.timezone'
     line: "date.timezone = America/Argentina/Buenos_Aires"
   when: nfsen_install_apache_php | default(true)

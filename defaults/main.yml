@@ -14,7 +14,11 @@ nfsen_ports:
   - 443
   - 53
   - 22
-nfsen_default_profile: "{{ nfdump_name }}"
+nfsen_default_profile: "live"
+
+nfsen_users:
+  - username: root
+    password: toor
 
 # nfdump
 nfdump_gitrepo: https://github.com/phaag/nfdump.git
@@ -29,5 +33,10 @@ nfdump_dumproot: /var/nfdump
 nfdump_sources:
   - name: borde
     port: 2055
+    profile: live
   - name: test
     port: 2056
+    profile: live
+
+ipt_netflow: true
+ipt_netflow_gitrepo: https://github.com/aabc/ipt-netflow.git

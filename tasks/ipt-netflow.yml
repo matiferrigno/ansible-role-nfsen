@@ -1,0 +1,37 @@
+---
+
+- name: Install dependencies (debian and ubuntu)
+  apt:
+    pkg:
+      - module-assistant
+      - iptables-dev
+      - pkg-config
+    state: present
+
+- name: Clone ipt-netflow
+  git:
+    repo: "{{ ipt_netflow_gitrepo }}"
+    dest: /usr/src/ipt-netflow
+    force: true
+    update: true
+    version: "{{ ipt_netflow_version }}"
+
+- name: m-a prepare # Need internet
+  shell: m-a prepare
+
+- name: Configure
+  command:
+    cmd: ./configure --enable-promisc
+    chdir: /usr/src/ipt-netflow
+  changed_when: false
+
+- name: Make All Install
+  make:
+    target: "all install"
+    chdir: /usr/src/ipt-netflow
+
+- name: Configure
+  command:
+    cmd: depmod
+    chdir: /usr/src/ipt-netflow
+  changed_when: false
