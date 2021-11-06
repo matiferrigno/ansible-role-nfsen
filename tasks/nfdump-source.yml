@@ -35,9 +35,9 @@
 - name: Creates a cron file /etc/cron.d/nfexpire
   ansible.builtin.cron:
     name: "nfexpire {{ item.name }}"
-    weekday: "*"
-    minute: "00"
-    hour: "*"
+    weekday: "{{ nfdump_expire_weekday | default('*') }}"
+    minute: "{{ nfdump_expire_minute | default('00') }}"
+    hour: "{{ nfdump_expire_hour | default('*') }}"
     user: root
     job: "{{ nfdump_bins }}/nfexpire -e {{ nfdump_dumproot }}/profiles-data/{{ item.name}} -t {{ nfdump_expire_lifetime }} -s {{ nfdump_expire_maxsize }}"
-    cron_file: ansible_yum-autoupdate
+    cron_file: ansible_nfexpire
