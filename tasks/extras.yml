@@ -67,7 +67,7 @@
 
 - name: Configure php-cli timezone
   ansible.builtin.lineinfile:
-    path: /etc/php/7.3/cli/php.ini
+    path: "/etc/php/{{ php_default_version_debian }}/cli/php.ini"
     regexp: '^date.timezone'
     line: "date.timezone = America/Argentina/Buenos_Aires"
   when: nfsen_install_apache_php | default(true)
