@@ -1,5 +1,7 @@
 ---
 # defaults file for matiferrigno.ansible-nfsen-ng
+ntp_timezone: America/Argentina/Buenos_Aires
+php_date_timezone: America/Argentina/Buenos_Aires
 
 # nfsen-ng
 nfsen_install_ntp: true
