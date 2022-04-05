@@ -2,6 +2,8 @@
 
 - name: Settings default vars for extra roles
   set_fact:
+    ntp_timezone: "{{ nfsen_timezone }}"
+    php_date_timezone: "{{ nfsen_timezone }}"
     ntp_package: chrony
     ntp_daemon: chrony
     php_enable_php_fpm: true
@@ -67,7 +69,7 @@
   ansible.builtin.lineinfile:
     path: "/etc/php/{{ php_default_version_debian }}/cli/php.ini"
     regexp: '^date.timezone'
-    line: "date.timezone = America/Argentina/Buenos_Aires"
+    line: "date.timezone = {{ nfsen_timezone }}"
   when: nfsen_install_apache_php | default(true)
 
 - name: role apache-php
