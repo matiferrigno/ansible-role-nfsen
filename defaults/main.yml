@@ -25,7 +25,7 @@ nfsen_users:
 
 # nfdump
 nfdump_gitrepo: https://github.com/phaag/nfdump.git
-nfdump_version: v1.6.23
+nfdump_version: master
 nfdump_fromsources: true
 nfdump_bins: /usr/local/bin
 nfdump_pid: /var/run/nfcapd.pid
