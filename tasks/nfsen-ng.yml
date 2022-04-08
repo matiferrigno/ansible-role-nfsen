@@ -6,7 +6,7 @@
     dest: "{{ nfsen_documentroot }}"
     force: true
     update: true
-    version: v0.2
+    version: "{{ nfsen_gitversion }}"
 
 - name: Give permissions to www-data
   file:
