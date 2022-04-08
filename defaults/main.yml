@@ -8,6 +8,7 @@ nfsen_install_ntp: true
 nfsen_install_apache_php: true
 nfsen_install_git: true
 nfsen_gitrepo: https://github.com/mbolli/nfsen-ng
+nfsen_gitversion: master
 nfsen_documentroot: /var/www/nfsen-ng
 nfsen_servername: nfsen-ng.local
 nfsen_log: LOG_DEBUG
